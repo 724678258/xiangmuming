@@ -6,6 +6,7 @@ import router from './router';
 
 import store from './store';
 import { Provider } from 'react-redux';
+import 'normalize.css'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
