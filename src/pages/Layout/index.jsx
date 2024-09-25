@@ -7,6 +7,7 @@ import {
 } from '@ant-design/icons'
 import './index.scss'
 import { Outlet, useNavigate } from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
 const { Header, Sider } = Layout
 
 const items = [
@@ -33,6 +34,12 @@ const GeekLayout = () => {
     console.log(router)
     navigat(router.key)
   }
+
+  // 获取当前路由路径，并高亮显示
+  const location =useLocation()
+  console.log(location);
+  const selectedKey= location.pathname
+  
   return (
     <Layout>
       <Header className="header">
@@ -52,6 +59,7 @@ const GeekLayout = () => {
             mode="inline"
             theme="dark"
             onClick={onMenuClick}
+            selectedKeys={selectedKey}
             items={items}
             style={{ height: '100%', borderRight: 0 }}></Menu>
         </Sider>
