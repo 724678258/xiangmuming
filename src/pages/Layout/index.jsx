@@ -4,7 +4,7 @@ import { request } from "../../utils"
 
 const Layout =()=>{
     useEffect(()=>{
-        request.get('/channels')
+        request.get('/user/profile')
     },[])
     return(
         <div>这里是Layout</div>
