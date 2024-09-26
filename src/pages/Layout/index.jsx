@@ -8,7 +8,7 @@ import {
 import './index.scss'
 import { Outlet, useNavigate } from 'react-router-dom'
 import { useLocation, } from 'react-router-dom'
-import { fetchUserInfo } from '../../store/modules/user'
+import { fetchUserInfo,clearUserInfo } from '../../store/modules/user'
 import { useDispatch } from 'react-redux'
 import { useEffect } from 'react'
 import { useSelector } from 'react-redux'
@@ -33,10 +33,12 @@ const items = [
 ]
 
 const GeekLayout = () => {
-  const navigat = useNavigate()
+
+  // 点击菜单路由跳转
+  const navigate = useNavigate()
   const onMenuClick = (router) => {
     console.log(router)
-    navigat(router.key)
+    navigate(router.key)
   }
 
   // 获取当前路由路径，并高亮显示
@@ -49,9 +51,15 @@ const GeekLayout = () => {
   useEffect(() => {
     dispatch(fetchUserInfo())
   }, [dispatch])
+  
   //从redux里面获取数据
-  const name = useSelector((state) => state.user.userInfo.name
-  )
+  const name = useSelector((state) => state.user.userInfo.name)
+
+  //退出登录 清除redux里面的用户信息
+  const onConfirm = () => {
+    dispatch(clearUserInfo())
+    navigate('/login')
+  }
 
   return (
     <Layout>
@@ -60,7 +68,12 @@ const GeekLayout = () => {
         <div className="user-info">
           <span className="user-name">{name}</span>
           <span className="user-logout">
-            <Popconfirm title="是否确认退出？" okText="退出" cancelText="取消" >
+            <Popconfirm 
+            title="是否确认退出？"
+             okText="退出" 
+             cancelText="取消" 
+             onConfirm={onConfirm}
+             >
               <LogoutOutlined /> 退出
             </Popconfirm>
           </span>

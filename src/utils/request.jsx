@@ -40,6 +40,7 @@ request.interceptors.response.use((response) => {
   if (error.response.status === 401) {
     removeToken()
     router.navigate('/login')
+    //强制刷新页面
     window.location.reload()
   }
   return Promise.reject(error)
